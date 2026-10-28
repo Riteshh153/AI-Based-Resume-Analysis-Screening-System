@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hiresmart.controller.ResumeScreeningController"
+            fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+
+    <VBox spacing="20" style="-fx-padding: 4;">
+
+        <!-- HEADER & SELECTION PANEL -->
+        <VBox styleClass="card" spacing="16">
+            <VBox spacing="2">
+                <Label text="AI-Powered ATS Resume Screening Engine" styleClass="page-title"/>
+                <Label text="Multi-vector semantic &amp; algorithmic matching of candidate resumes against job requirements" styleClass="page-subtitle"/>
+            </VBox>
+
+            <HBox spacing="16" alignment="CENTER_LEFT">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Select Candidate Resume:" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                    <ComboBox fx:id="resumeSelector" maxWidth="Infinity" promptText="Choose a candidate resume..." styleClass="combo-box"/>
+                </VBox>
+
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Select Target Job Requisition:" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                    <ComboBox fx:id="jobSelector" maxWidth="Infinity" promptText="Choose target job requisition..." styleClass="combo-box"/>
+                </VBox>
+
+                <VBox spacing="4" alignment="BOTTOM_CENTER">
+                    <Button fx:id="btnAnalyzeScreening" text="⚡ Run ATS Screening" onAction="#onRunScreening" styleClass="primary-button" style="-fx-padding: 10 24;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- SCREENING RESULTS DASHBOARD (ANIMATED) -->
+        <VBox fx:id="resultsDashboardPane" styleClass="card" spacing="18" visible="false" managed="false"
+              style="-fx-border-color: #93C5FD; -fx-border-width: 2;">
+
+            <!-- SCORE METRICS BANNER -->
+            <HBox spacing="24" alignment="CENTER_LEFT">
+                <!-- Large Circular Score Display -->
+                <VBox alignment="CENTER" prefWidth="180" styleClass="card"
+                      style="-fx-background-color: #EFF6FF; -fx-background-radius: 16; -fx-padding: 20;">
+                    <Label text="Overall ATS Match" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #1E40AF;"/>
+                    <Label fx:id="overallScoreLabel" text="92%" style="-fx-font-size: 44px; -fx-font-weight: 900; -fx-text-fill: #2563EB;"/>
+                    <Label fx:id="engineBadgeLabel" text="Transparent Baseline Engine" styleClass="role-tag" style="-fx-background-color: #1E40AF;"/>
+                </VBox>
+
+                <!-- Detailed Sub-Scores -->
+                <VBox spacing="12" HBox.hgrow="ALWAYS">
+                    <VBox spacing="4">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Skills Competency Match" style="-fx-font-weight: bold;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="skillScoreLabel" text="95%" style="-fx-font-weight: bold; -fx-text-fill: #2563EB;"/>
+                        </HBox>
+                        <ProgressBar fx:id="skillProgressBar" progress="0.95" maxWidth="Infinity" styleClass="progress-bar"/>
+                    </VBox>
+
+                    <VBox spacing="4">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Experience &amp; Tenure Alignment" style="-fx-font-weight: bold;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="expScoreLabel" text="100%" style="-fx-font-weight: bold; -fx-text-fill: #10B981;"/>
+                        </HBox>
+                        <ProgressBar fx:id="expProgressBar" progress="1.0" maxWidth="Infinity" styleClass="progress-bar"/>
+                    </VBox>
+
+                    <VBox spacing="4">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="ATS Document Format Compatibility" style="-fx-font-weight: bold;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="atsScoreLabel" text="90%" style="-fx-font-weight: bold; -fx-text-fill: #3B82F6;"/>
+                        </HBox>
+                        <ProgressBar fx:id="atsProgressBar" progress="0.90" maxWidth="Infinity" styleClass="progress-bar"/>
+                    </VBox>
+                </VBox>
+            </HBox>
+
+            <Separator/>
+
+            <!-- SKILLS BREAKDOWN: MATCHED & MISSING -->
+            <HBox spacing="20">
+                <VBox HBox.hgrow="ALWAYS" spacing="8">
+                    <Label text="✓ Matched Required Skills" style="-fx-font-weight: bold; -fx-text-fill: #059669;"/>
+                    <FlowPane fx:id="matchedSkillsPane" hgap="8" vgap="8"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS" spacing="8">
+                    <Label text="⚠ Missing or Recommended Skills" style="-fx-font-weight: bold; -fx-text-fill: #DC2626;"/>
+                    <FlowPane fx:id="missingSkillsPane" hgap="8" vgap="8"/>
+                </VBox>
+            </HBox>
+
+            <Separator/>
+
+            <!-- ACTIONABLE IMPROVEMENT RECOMMENDATIONS -->
+            <VBox spacing="8">
+                <Label text="💡 Actionable ATS Optimization Recommendations" styleClass="section-title"/>
+                <VBox fx:id="recommendationsListPane" spacing="6" style="-fx-background-color: #F8FAFC; -fx-padding: 14; -fx-background-radius: 8;"/>
+            </VBox>
+        </VBox>
+
+        <!-- SCREENING HISTORY TABLE -->
+        <VBox styleClass="card" spacing="12">
+            <Label text="Screening History &amp; Benchmark Audit" styleClass="section-title"/>
+            <TableView fx:id="historyTable" prefHeight="260">
+                <columns>
+                    <TableColumn fx:id="colHistId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colHistCandidate" text="Candidate" prefWidth="180"/>
+                    <TableColumn fx:id="colHistJob" text="Target Requisition" prefWidth="240"/>
+                    <TableColumn fx:id="colHistScore" text="Match Score" prefWidth="110"/>
+                    <TableColumn fx:id="colHistAts" text="ATS Format" prefWidth="100"/>
+                    <TableColumn fx:id="colHistEngine" text="Engine Type" prefWidth="200"/>
+                    <TableColumn fx:id="colHistDate" text="Screened Date" prefWidth="140"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</ScrollPane>

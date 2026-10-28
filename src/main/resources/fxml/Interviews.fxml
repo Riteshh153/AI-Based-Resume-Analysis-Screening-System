@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hiresmart.controller.InterviewController"
+            fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+
+    <VBox spacing="20" style="-fx-padding: 4;">
+
+        <!-- HEADER TOOLBAR -->
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="14">
+            <VBox spacing="2">
+                <Label text="Interview Scheduling &amp; Candidate Evaluations" styleClass="page-title"/>
+                <Label text="Manage interview rounds, meet links, multi-metric scorecards, and hiring recommendations" styleClass="page-subtitle"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button fx:id="btnOpenScheduleModal" text="➕ Schedule Interview" onAction="#onOpenScheduleModal" styleClass="primary-button"/>
+        </HBox>
+
+        <!-- SCHEDULE INTERVIEW MODAL (COLLAPSIBLE) -->
+        <VBox fx:id="scheduleModalPane" styleClass="card" spacing="14" visible="false" managed="false"
+              style="-fx-border-color: #93C5FD; -fx-border-width: 2;">
+            <HBox alignment="CENTER_LEFT">
+                <Label text="Schedule Candidate Interview Round" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="✕ Close" onAction="#onCloseScheduleModal" styleClass="icon-button"/>
+            </HBox>
+
+            <GridPane hgap="12" vgap="12">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="33.3"/>
+                    <ColumnConstraints percentWidth="33.3"/>
+                    <ColumnConstraints percentWidth="33.4"/>
+                </columnConstraints>
+
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="Candidate &amp; Job *" style="-fx-font-weight: bold;"/>
+                    <ComboBox fx:id="applicationSelector" maxWidth="Infinity" styleClass="combo-box"/>
+                </VBox>
+                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="Interview Round Type *" style="-fx-font-weight: bold;"/>
+                    <ComboBox fx:id="roundTypeSelector" maxWidth="Infinity" styleClass="combo-box"/>
+                </VBox>
+                <VBox spacing="4" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Label text="Interviewer Name *" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="interviewerNameInput" promptText="e.g. Vikram Malhotra (Lead Architect)" styleClass="text-field"/>
+                </VBox>
+
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <Label text="Interviewer Email" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="interviewerEmailInput" promptText="interviewer@hiresmart.com" styleClass="text-field"/>
+                </VBox>
+                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Label text="Meeting Link / Venue" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="meetingLinkInput" promptText="https://meet.google.com/hsm-hire-ats" styleClass="text-field"/>
+                </VBox>
+                <VBox spacing="4" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <Label text="Schedule Date &amp; Time" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="scheduleTimeInput" promptText="YYYY-MM-DD HH:mm (e.g. 2026-10-15 14:30)" styleClass="text-field"/>
+                </VBox>
+            </GridPane>
+
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="Cancel" onAction="#onCloseScheduleModal" styleClass="outline-button"/>
+                <Button text="Confirm Schedule &amp; Dispatch Invite" onAction="#onSubmitSchedule" styleClass="primary-button"/>
+            </HBox>
+        </VBox>
+
+        <!-- EVALUATION SCORECARD MODAL (COLLAPSIBLE) -->
+        <VBox fx:id="evaluationModalPane" styleClass="card" spacing="14" visible="false" managed="false"
+              style="-fx-border-color: #10B981; -fx-border-width: 2;">
+            <HBox alignment="CENTER_LEFT">
+                <Label fx:id="evalModalTitle" text="Candidate Scorecard &amp; Evaluation" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="✕ Close" onAction="#onCloseEvalModal" styleClass="icon-button"/>
+            </HBox>
+
+            <GridPane hgap="12" vgap="12">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                </columnConstraints>
+
+                <VBox spacing="4" GridPane.columnIndex="0">
+                    <Label text="Technical Competency (1-100)" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="evalTechInput" promptText="85" styleClass="text-field"/>
+                </VBox>
+                <VBox spacing="4" GridPane.columnIndex="1">
+                    <Label text="Communication (1-100)" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="evalCommInput" promptText="80" styleClass="text-field"/>
+                </VBox>
+                <VBox spacing="4" GridPane.columnIndex="2">
+                    <Label text="Problem Solving (1-100)" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="evalProblemInput" promptText="90" styleClass="text-field"/>
+                </VBox>
+                <VBox spacing="4" GridPane.columnIndex="3">
+                    <Label text="Final Recommendation *" style="-fx-font-weight: bold;"/>
+                    <ComboBox fx:id="evalRecSelector" maxWidth="Infinity" styleClass="combo-box"/>
+                </VBox>
+            </GridPane>
+
+            <VBox spacing="4">
+                <Label text="Interview Feedback &amp; Justification Notes *" style="-fx-font-weight: bold;"/>
+                <TextArea fx:id="evalNotesInput" prefRowCount="3" wrapText="true" promptText="Detailed feedback on candidate performance..." styleClass="text-area"/>
+            </VBox>
+
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="Cancel" onAction="#onCloseEvalModal" styleClass="outline-button"/>
+                <Button text="Submit Final Evaluation" onAction="#onSubmitEvaluation" styleClass="primary-button" style="-fx-background-color: #059669;"/>
+            </HBox>
+        </VBox>
+
+        <!-- INTERVIEWS TABLE -->
+        <VBox styleClass="card" spacing="12">
+            <TableView fx:id="interviewsTable" prefHeight="400">
+                <columns>
+                    <TableColumn fx:id="colIvId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colCandidate" text="Candidate" prefWidth="180"/>
+                    <TableColumn fx:id="colJob" text="Target Requisition" prefWidth="220"/>
+                    <TableColumn fx:id="colRound" text="Round" prefWidth="110"/>
+                    <TableColumn fx:id="colTime" text="Date &amp; Time" prefWidth="150"/>
+                    <TableColumn fx:id="colInterviewer" text="Interviewer" prefWidth="170"/>
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
+                    <TableColumn fx:id="colScore" text="Avg Score" prefWidth="90"/>
+                    <TableColumn fx:id="colRec" text="Outcome" prefWidth="120"/>
+                    <TableColumn fx:id="colAction" text="Action" prefWidth="120"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</ScrollPane>

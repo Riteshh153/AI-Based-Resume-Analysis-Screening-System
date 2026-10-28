@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hiresmart.controller.CandidateProfileController"
+            fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+
+    <VBox spacing="20" style="-fx-padding: 4;">
+
+        <!-- PROFILE HEADER CARD -->
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="20">
+            <Label text="👤" style="-fx-font-size: 44px; -fx-background-color: #EFF6FF; -fx-background-radius: 999; -fx-padding: 12 18;"/>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label fx:id="headerNameLabel" text="Aditya Verma" styleClass="page-title"/>
+                    <Label fx:id="headerRoleBadge" text="CANDIDATE" styleClass="role-tag"/>
+                </HBox>
+                <Label fx:id="headerHeadlineLabel" text="Senior Java Full Stack Engineer | Spring Boot &amp; Microservices" styleClass="page-subtitle"/>
+            </VBox>
+            <VBox alignment="CENTER_RIGHT" spacing="4">
+                <HBox spacing="6" alignment="CENTER_RIGHT">
+                    <Label text="Profile Completion:" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="completionPercentageLabel" text="85%" style="-fx-font-size: 16px; -fx-font-weight: 800; -fx-text-fill: #2563EB;"/>
+                </HBox>
+                <ProgressBar fx:id="completionProgressBar" progress="0.85" prefWidth="180" styleClass="progress-bar"/>
+            </VBox>
+        </HBox>
+
+        <!-- MAIN TWO-COLUMN LAYOUT -->
+        <HBox spacing="20">
+
+            <!-- LEFT: EDITABLE PROFILE DETAILS -->
+            <VBox HBox.hgrow="ALWAYS" styleClass="card" spacing="16">
+                <Label text="Candidate Details &amp; Qualifications" styleClass="section-title"/>
+
+                <GridPane hgap="12" vgap="12">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="Full Name" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="fullNameInput" styleClass="text-field"/>
+                    </VBox>
+                    <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="Phone Number" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="phoneInput" styleClass="text-field"/>
+                    </VBox>
+
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label text="Professional Headline" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="headlineInput" styleClass="text-field"/>
+                    </VBox>
+                    <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label text="Location / City" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="locationInput" styleClass="text-field"/>
+                    </VBox>
+
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <Label text="Highest Qualification" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="qualificationInput" styleClass="text-field"/>
+                    </VBox>
+                    <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label text="Years of Experience" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="experienceYearsInput" styleClass="text-field"/>
+                    </VBox>
+                </GridPane>
+
+                <VBox spacing="4">
+                    <Label text="Key Skills (Comma Separated)" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                    <TextField fx:id="skillsInput" promptText="e.g. Java, Spring Boot, MySQL, REST APIs, Docker" styleClass="text-field"/>
+                </VBox>
+
+                <VBox spacing="4">
+                    <Label text="Professional Summary &amp; Background" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                    <TextArea fx:id="summaryInput" prefRowCount="3" wrapText="true" styleClass="text-area"/>
+                </VBox>
+
+                <HBox spacing="12">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="LinkedIn URL" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="linkedinInput" promptText="https://linkedin.com/in/..." styleClass="text-field"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="GitHub URL" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="githubInput" promptText="https://github.com/..." styleClass="text-field"/>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Label fx:id="profileStatusMessage" style="-fx-text-fill: #10B981; -fx-font-weight: bold;"/>
+                    <Button fx:id="btnSaveProfile" text="💾 Save Profile" onAction="#onSaveProfile" styleClass="primary-button"/>
+                </HBox>
+            </VBox>
+
+            <!-- RIGHT: RESUME UPLOAD & PARSER DETAILS -->
+            <VBox prefWidth="480" styleClass="card" spacing="16">
+                <HBox alignment="CENTER_LEFT">
+                    <VBox spacing="2">
+                        <Label text="Resume Documents &amp; AI Parser" styleClass="section-title"/>
+                        <Label text="Supported formats: PDF &amp; DOCX (Max 15MB)" styleClass="page-subtitle"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="btnUploadResume" text="⬆ Upload Resume" onAction="#onUploadResume" styleClass="secondary-button"/>
+                </HBox>
+
+                <!-- Parsed details review card -->
+                <VBox styleClass="card" style="-fx-background-color: #F8FAFC; -fx-padding: 12;" spacing="10">
+                    <Label text="Extracted Resume Data (Apache PDFBox &amp; POI):" style="-fx-font-weight: bold; -fx-text-fill: #1E40AF;"/>
+
+                    <VBox spacing="2">
+                        <Label text="Detected Skills:" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        <Label fx:id="extractedSkillsLabel" text="Java, Spring Boot, MySQL, REST APIs, Microservices" wrapText="true" style="-fx-text-fill: #334155;"/>
+                    </VBox>
+
+                    <VBox spacing="2">
+                        <Label text="Detected Education:" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        <Label fx:id="extractedEducationLabel" text="MCA / B.Tech Computer Science" wrapText="true" style="-fx-text-fill: #334155;"/>
+                    </VBox>
+
+                    <VBox spacing="2">
+                        <Label text="Detected Experience &amp; Projects:" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        <Label fx:id="extractedExperienceLabel" text="3+ years Enterprise Software Architecture" wrapText="true" style="-fx-text-fill: #334155;"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Version History Table -->
+                <VBox spacing="8">
+                    <Label text="Resume Version History" style="-fx-font-weight: bold; -fx-text-fill: #475569;"/>
+                    <TableView fx:id="resumeVersionTable" prefHeight="160">
+                        <columns>
+                            <TableColumn fx:id="colVersion" text="Ver" prefWidth="50"/>
+                            <TableColumn fx:id="colFileName" text="File Name" prefWidth="180"/>
+                            <TableColumn fx:id="colFileType" text="Type" prefWidth="60"/>
+                            <TableColumn fx:id="colUploadDate" text="Uploaded" prefWidth="100"/>
+                            <TableColumn fx:id="colIsActive" text="Status" prefWidth="70"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>

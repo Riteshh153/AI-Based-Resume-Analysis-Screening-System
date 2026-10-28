@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hiresmart.controller.CandidateController"
+            fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+
+    <VBox spacing="20" style="-fx-padding: 4;">
+
+        <!-- HEADER & PIPELINE FILTERS -->
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="14">
+            <VBox spacing="2">
+                <Label text="Applicant Pipeline &amp; Candidate Management" styleClass="page-title"/>
+                <Label text="Track candidate lifecycle, evaluate ATS scores, and advance recruitment stages" styleClass="page-subtitle"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <HBox spacing="8" alignment="CENTER_RIGHT">
+                <Button fx:id="btnFilterAll" text="All" onAction="#filterAll" styleClass="secondary-button"/>
+                <Button fx:id="btnFilterReview" text="Under Review" onAction="#filterReview" styleClass="outline-button"/>
+                <Button fx:id="btnFilterShortlisted" text="Shortlisted" onAction="#filterShortlisted" styleClass="outline-button"/>
+                <Button fx:id="btnFilterInterviews" text="Interview Stage" onAction="#filterInterviews" styleClass="outline-button"/>
+                <Button fx:id="btnFilterSelected" text="Selected" onAction="#filterSelected" styleClass="outline-button"/>
+            </HBox>
+        </HBox>
+
+        <!-- STATUS UPDATE MODAL (COLLAPSIBLE) -->
+        <VBox fx:id="statusUpdatePane" styleClass="card" spacing="14" visible="false" managed="false"
+              style="-fx-border-color: #93C5FD; -fx-border-width: 2;">
+            <HBox alignment="CENTER_LEFT">
+                <Label fx:id="statusModalTitle" text="Update Application Status" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="✕ Close" onAction="#onCloseStatusModal" styleClass="icon-button"/>
+            </HBox>
+
+            <HBox spacing="16">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Target Stage / New Status *" style="-fx-font-weight: bold;"/>
+                    <ComboBox fx:id="statusSelector" maxWidth="Infinity" styleClass="combo-box"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Stage Change Reason *" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="statusReasonInput" promptText="e.g. Cleared technical screening benchmark" styleClass="text-field"/>
+                </VBox>
+            </HBox>
+
+            <VBox spacing="4">
+                <Label text="Recruiter Notes / Candidate Feedback" style="-fx-font-weight: bold;"/>
+                <TextArea fx:id="statusNotesInput" prefRowCount="3" wrapText="true" promptText="Add evaluation commentary..." styleClass="text-area"/>
+            </VBox>
+
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="Cancel" onAction="#onCloseStatusModal" styleClass="outline-button"/>
+                <Button text="Confirm Status Update" onAction="#onSubmitStatusUpdate" styleClass="primary-button"/>
+            </HBox>
+        </VBox>
+
+        <!-- PIPELINE APPLICATIONS TABLE -->
+        <VBox styleClass="card" spacing="12">
+            <TableView fx:id="applicationsTable" prefHeight="420">
+                <columns>
+                    <TableColumn fx:id="colAppId" text="App ID" prefWidth="60"/>
+                    <TableColumn fx:id="colCandidateName" text="Candidate Name" prefWidth="180"/>
+                    <TableColumn fx:id="colCandidateEmail" text="Email Address" prefWidth="200"/>
+                    <TableColumn fx:id="colJobTitle" text="Target Requisition" prefWidth="220"/>
+                    <TableColumn fx:id="colMatchScore" text="ATS Score" prefWidth="90"/>
+                    <TableColumn fx:id="colStatus" text="Pipeline Status" prefWidth="160"/>
+                    <TableColumn fx:id="colAppliedAt" text="Applied Date" prefWidth="120"/>
+                    <TableColumn fx:id="colAction" text="Recruiter Action" prefWidth="150"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</ScrollPane>

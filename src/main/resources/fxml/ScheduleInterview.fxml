@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.hiresmart.controller.ScheduleInterviewController"
+      spacing="16" styleClass="card" style="-fx-padding: 24;">
+
+    <Label text="Quick Interview Scheduler" styleClass="page-title"/>
+    <Label text="Directly book technical evaluation slots and trigger automated applicant email alerts." styleClass="page-subtitle"/>
+    <Separator/>
+
+    <GridPane hgap="12" vgap="12">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50"/>
+            <ColumnConstraints percentWidth="50"/>
+        </columnConstraints>
+
+        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label text="Candidate Name / Email:" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="candidateInfoInput" promptText="e.g. Aditya Verma" styleClass="text-field"/>
+        </VBox>
+        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <Label text="Target Job Opening:" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="jobTitleInput" promptText="e.g. Senior Java Full Stack Engineer" styleClass="text-field"/>
+        </VBox>
+
+        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <Label text="Interview Round Type:" style="-fx-font-weight: bold;"/>
+            <ComboBox fx:id="roundCombo" maxWidth="Infinity" styleClass="combo-box"/>
+        </VBox>
+        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label text="Interviewer Name:" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="interviewerInput" promptText="e.g. Lead Technical Architect" styleClass="text-field"/>
+        </VBox>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Go to Full Interview Pipeline" onAction="#onGoToPipeline" styleClass="secondary-button"/>
+    </HBox>
+</VBox>

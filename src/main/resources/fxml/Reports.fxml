@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hiresmart.controller.ReportController"
+            fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+
+    <VBox spacing="20" style="-fx-padding: 4;">
+
+        <!-- HEADER -->
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="14">
+            <VBox spacing="2">
+                <Label text="Excel Reports &amp; Recruitment Analytics Center" styleClass="page-title"/>
+                <Label text="Generate styled, professional Microsoft Excel (.xlsx) workbooks powered by Apache POI" styleClass="page-subtitle"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="⚡ Export Master Workbook (All Data)" onAction="#onExportMaster" styleClass="primary-button"/>
+        </HBox>
+
+        <!-- 6 REPORT CARDS GRID -->
+        <GridPane hgap="16" vgap="16">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.4"/>
+            </columnConstraints>
+
+            <!-- Card 1: Candidates -->
+            <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="card" spacing="12">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="👥 Candidate Directory" styleClass="section-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text=".XLSX" styleClass="role-tag" style="-fx-background-color: #10B981;"/>
+                </HBox>
+                <Label text="Export candidate profiles, contact info, qualifications, verified skills, and experience metrics."
+                       wrapText="true" style="-fx-text-fill: #64748B; -fx-font-size: 12px;"/>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Button text="📥 Export Candidates" onAction="#onExportCandidates" maxWidth="Infinity" styleClass="secondary-button"/>
+            </VBox>
+
+            <!-- Card 2: Jobs -->
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="card" spacing="12">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="💼 Job Postings &amp; Requisitions" styleClass="section-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text=".XLSX" styleClass="role-tag" style="-fx-background-color: #10B981;"/>
+                </HBox>
+                <Label text="Export all active and archived job openings, experience requirements, competencies, and deadlines."
+                       wrapText="true" style="-fx-text-fill: #64748B; -fx-font-size: 12px;"/>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Button text="📥 Export Jobs" onAction="#onExportJobs" maxWidth="Infinity" styleClass="secondary-button"/>
+            </VBox>
+
+            <!-- Card 3: Applications -->
+            <VBox GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="card" spacing="12">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="📋 Application Funnel" styleClass="section-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text=".XLSX" styleClass="role-tag" style="-fx-background-color: #10B981;"/>
+                </HBox>
+                <Label text="Export candidate applications pipeline, recruitment stages, review notes, and submission timestamps."
+                       wrapText="true" style="-fx-text-fill: #64748B; -fx-font-size: 12px;"/>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Button text="📥 Export Applications" onAction="#onExportApplications" maxWidth="Infinity" styleClass="secondary-button"/>
+            </VBox>
+
+            <!-- Card 4: Screening -->
+            <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="card" spacing="12">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="⚡ ATS Screening Benchmarks" styleClass="section-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text=".XLSX" styleClass="role-tag" style="-fx-background-color: #10B981;"/>
+                </HBox>
+                <Label text="Export transparent ATS match percentages, skill alignment scores, missing keywords, and engine audit data."
+                       wrapText="true" style="-fx-text-fill: #64748B; -fx-font-size: 12px;"/>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Button text="📥 Export Screening" onAction="#onExportScreening" maxWidth="Infinity" styleClass="secondary-button"/>
+            </VBox>
+
+            <!-- Card 5: Interviews -->
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="card" spacing="12">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="📅 Interviews &amp; Scorecards" styleClass="section-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text=".XLSX" styleClass="role-tag" style="-fx-background-color: #10B981;"/>
+                </HBox>
+                <Label text="Export scheduled interview rounds, interviewers, multi-factor scores, feedback commentary, and final outcomes."
+                       wrapText="true" style="-fx-text-fill: #64748B; -fx-font-size: 12px;"/>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Button text="📥 Export Interviews" onAction="#onExportInterviews" maxWidth="Infinity" styleClass="secondary-button"/>
+            </VBox>
+
+            <!-- Card 6: Master Report -->
+            <VBox GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="card" spacing="12"
+                  style="-fx-border-color: #93C5FD; -fx-background-color: #F8FAFC;">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="🏆 Master Unified Workbook" styleClass="section-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="ALL SHEETS" styleClass="role-tag"/>
+                </HBox>
+                <Label text="Includes all 5 spreadsheets in a single consolidated Excel file with formatted headers, auto-widths, and zebra rows."
+                       wrapText="true" style="-fx-text-fill: #334155; -fx-font-size: 12px;"/>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Button text="📥 Export Consolidated Report" onAction="#onExportMaster" maxWidth="Infinity" styleClass="primary-button"/>
+            </VBox>
+        </GridPane>
+    </VBox>
+</ScrollPane>

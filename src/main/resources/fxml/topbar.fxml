@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.hiresmart.controller.TopBarController"
+      styleClass="top-bar" alignment="CENTER_LEFT" spacing="16" prefHeight="64">
+
+    <!-- PAGE TITLE / BREADCRUMB -->
+    <VBox spacing="2">
+        <Label fx:id="pageTitle" text="Dashboard Overview" styleClass="page-title" style="-fx-font-size: 18px;"/>
+        <Label fx:id="pageSubtitle" text="Live recruitment metrics &amp; ATS screening status" styleClass="page-subtitle" style="-fx-font-size: 11px;"/>
+    </VBox>
+
+    <Region HBox.hgrow="ALWAYS"/>
+
+    <!-- GLOBAL SEARCH -->
+    <HBox alignment="CENTER_LEFT" spacing="8" styleClass="card" style="-fx-padding: 4 12; -fx-background-radius: 20;">
+        <Label text="🔍" style="-fx-font-size: 12px; -fx-text-fill: #94A3B8;"/>
+        <TextField fx:id="searchField" promptText="Search candidates, skills, positions..."
+                   style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 4; -fx-pref-width: 240;"/>
+    </HBox>
+
+    <!-- NOTIFICATION BELL -->
+    <Button fx:id="btnNotificationBell" text="🔔" onAction="#openNotifications" styleClass="icon-button"
+            style="-fx-background-radius: 999; -fx-padding: 8 12;"/>
+
+    <!-- LOGGED IN USER BADGE -->
+    <HBox alignment="CENTER" spacing="10" styleClass="user-badge">
+        <Label fx:id="userAvatarLabel" text="👤" style="-fx-font-size: 14px;"/>
+        <VBox spacing="1" alignment="CENTER_LEFT">
+            <Label fx:id="userNameLabel" text="Aditya Verma" style="-fx-font-weight: bold; -fx-font-size: 12px; -fx-text-fill: #0F172A;"/>
+            <Label fx:id="userEmailLabel" text="candidate@hiresmart.com" style="-fx-font-size: 10px; -fx-text-fill: #64748B;"/>
+        </VBox>
+        <Label fx:id="userRoleBadge" text="CANDIDATE" styleClass="role-tag"/>
+    </HBox>
+</HBox>

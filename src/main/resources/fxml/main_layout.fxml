@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hiresmart.controller.MainLayoutController"
+            prefWidth="1280" prefHeight="840" style="-fx-background-color: #F8FAFC;">
+    <left>
+        <fx:include source="sidebar.fxml"/>
+    </left>
+    <top>
+        <fx:include source="topbar.fxml"/>
+    </top>
+    <center>
+        <StackPane fx:id="contentHolder" style="-fx-background-color: #F8FAFC; -fx-padding: 24;"/>
+    </center>
+</BorderPane>

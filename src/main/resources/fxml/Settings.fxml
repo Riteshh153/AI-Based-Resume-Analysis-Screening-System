@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hiresmart.controller.SettingsController"
+            fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+
+    <VBox spacing="20" style="-fx-padding: 4;">
+
+        <!-- HEADER -->
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="14">
+            <VBox spacing="2">
+                <Label text="System Settings &amp; Architecture Status" styleClass="page-title"/>
+                <Label text="Environment configurations, database health checks, and audit trails" styleClass="page-subtitle"/>
+            </VBox>
+        </HBox>
+
+        <!-- SYSTEM CONFIGURATION & ACCOUNT GRID -->
+        <HBox spacing="16">
+
+            <!-- LEFT: ENVIRONMENT STATUS -->
+            <VBox HBox.hgrow="ALWAYS" styleClass="card" spacing="14">
+                <Label text="Technology Stack Diagnostics" styleClass="section-title"/>
+                <Separator/>
+
+                <GridPane hgap="12" vgap="12">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="40"/>
+                        <ColumnConstraints percentWidth="60"/>
+                    </columnConstraints>
+
+                    <Label text="Relational Database:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="dbStatus" text="Connected (MySQL / Embedded MySQL Mode)" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-text-fill: #10B981; -fx-font-weight: bold;"/>
+
+                    <Label text="Java / JavaFX Runtime:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: bold;"/>
+                    <Label text="Java 22 (HotSpot 64-Bit) | JavaFX 21.0.2" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <Label text="Backend Framework:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-weight: bold;"/>
+                    <Label text="Spring Boot 3.2.3 | REST APIs + Spring JDBC" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <Label text="Document Parsers:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-weight: bold;"/>
+                    <Label text="Apache PDFBox 2.0.31 &amp; Apache POI 5.2.5" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                    <Label text="Email &amp; Notification Engine:" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-font-weight: bold;"/>
+                    <Label text="Jakarta Mail 2.0.2 (SMTP &amp; Simulated Fallback)" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                    <Label text="AI Screening Provider:" GridPane.columnIndex="0" GridPane.rowIndex="5" style="-fx-font-weight: bold;"/>
+                    <Label text="Baseline Transparent Algorithmic ATS Engine" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                </GridPane>
+            </VBox>
+
+            <!-- RIGHT: CURRENT USER ACCOUNT -->
+            <VBox prefWidth="420" styleClass="card" spacing="14">
+                <Label text="Logged In Account" styleClass="section-title"/>
+                <Separator/>
+
+                <VBox spacing="6">
+                    <Label text="Full Name:" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #64748B;"/>
+                    <Label fx:id="accountName" text="Aditya Verma" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                </VBox>
+                <VBox spacing="6">
+                    <Label text="Email Address:" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #64748B;"/>
+                    <Label fx:id="accountEmail" text="candidate@hiresmart.com"/>
+                </VBox>
+                <VBox spacing="6">
+                    <Label text="Role Permission:" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #64748B;"/>
+                    <Label fx:id="accountRole" text="CANDIDATE" styleClass="role-tag"/>
+                </VBox>
+                <Separator/>
+                <Button text="🚪 Sign Out" onAction="#onSignOut" maxWidth="Infinity" styleClass="danger-button"/>
+            </VBox>
+        </HBox>
+
+        <!-- AUDIT LOGS TABLE -->
+        <VBox styleClass="card" spacing="12">
+            <Label text="Recent System Audit Logs (Security &amp; Recruitment Activity)" styleClass="section-title"/>
+            <TableView fx:id="auditTable" prefHeight="240">
+                <columns>
+                    <TableColumn fx:id="colLogId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colLogUser" text="User Email" prefWidth="200"/>
+                    <TableColumn fx:id="colLogAction" text="Action" prefWidth="160"/>
+                    <TableColumn fx:id="colLogEntity" text="Entity" prefWidth="120"/>
+                    <TableColumn fx:id="colLogDetails" text="Details" prefWidth="350"/>
+                    <TableColumn fx:id="colLogTime" text="Timestamp" prefWidth="140"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</ScrollPane>

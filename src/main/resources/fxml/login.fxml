@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.hiresmart.controller.LoginController"
+           prefWidth="1140" prefHeight="780" styleClass="login-root-stack">
+
+    <!-- 1. AMBIENT BACKGROUND GLOW CIRCLES -->
+    <StackPane mouseTransparent="true" pickOnBounds="false">
+        <Region styleClass="ambient-circle-tl" StackPane.alignment="TOP_LEFT">
+            <StackPane.margin>
+                <Insets top="-80" left="-80"/>
+            </StackPane.margin>
+        </Region>
+        <Region styleClass="ambient-circle-br" StackPane.alignment="BOTTOM_RIGHT">
+            <StackPane.margin>
+                <Insets bottom="-90" right="-90"/>
+            </StackPane.margin>
+        </Region>
+    </StackPane>
+
+    <!-- 2. MAIN CONTENT OVERLAY (TOP BAR + CENTER SPLIT CARD) -->
+    <BorderPane fx:id="contentBorderPane" pickOnBounds="false">
+
+        <!-- TOP BAR: STATIC MAIN PROJECT TITLE -->
+        <top>
+            <HBox alignment="CENTER" spacing="10" styleClass="top-static-title-bar">
+                <padding>
+                    <Insets top="14" bottom="12" left="24" right="24"/>
+                </padding>
+                <HBox alignment="CENTER" spacing="6" styleClass="top-project-badge">
+                    <Label text="⚡" style="-fx-font-size: 11px; -fx-text-fill: #38BDF8;"/>
+                    <Label text="PROJECT" styleClass="top-project-badge-text"/>
+                </HBox>
+                <Label text="AI based resume analysis and screening system" styleClass="top-static-title-label"/>
+            </HBox>
+        </top>
+
+        <!-- CENTER: SPLIT 2-COLUMN MODERN LOGIN CARD -->
+        <center>
+            <StackPane alignment="CENTER" pickOnBounds="false">
+                <padding>
+                    <Insets top="10" bottom="24" left="24" right="24"/>
+                </padding>
+
+                <!-- Responsive Split Card -->
+                <HBox fx:id="loginCard" alignment="CENTER" prefWidth="910" minWidth="740" maxWidth="940"
+                      prefHeight="610" minHeight="520" maxHeight="650" styleClass="split-login-card">
+
+                    <!-- LEFT COLUMN: AUTHENTICATION FORM -->
+                    <VBox fx:id="authLeftPane" prefWidth="480" minWidth="380" spacing="10" alignment="CENTER_LEFT"
+                          styleClass="auth-split-left" HBox.hgrow="ALWAYS">
+
+                        <!-- Main Title & Subtitle -->
+                        <VBox spacing="2">
+                            <Label fx:id="authTitle" text="LOGIN" styleClass="auth-main-title"/>
+                            <Label fx:id="authSubtitle" text="How do I get started? Enter your credentials."
+                                   styleClass="auth-main-subtitle" wrapText="true"/>
+                        </VBox>
+
+                        <!-- ROLE SELECTOR PILLS -->
+                        <HBox fx:id="roleSelectorBox" spacing="6" alignment="CENTER_LEFT">
+                            <Button fx:id="roleStudentBtn" text="🎓 Student" onAction="#selectStudentRole"
+                                    styleClass="role-select-btn, role-select-active" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            <Button fx:id="roleRecruiterBtn" text="💼 Recruiter" onAction="#selectRecruiterRole"
+                                    styleClass="role-select-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            <Button fx:id="roleAdminBtn" text="🛡️ Admin" onAction="#selectAdminRole"
+                                    styleClass="role-select-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        </HBox>
+
+                        <!-- MODE TOGGLE (Sign In / Create Account) -->
+                        <HBox fx:id="modeSegmentBox" spacing="6">
+                            <Button fx:id="tabSignIn" text="Sign In" onAction="#switchModeToLogin"
+                                    styleClass="mode-tab-btn, mode-tab-active" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            <Button fx:id="tabSignUp" text="Create Account" onAction="#switchModeToRegister"
+                                    styleClass="mode-tab-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        </HBox>
+
+                        <!-- ADMIN SECURITY NOTICE -->
+                        <VBox fx:id="adminNoticeBox" spacing="3" styleClass="admin-notice-card" managed="false" visible="false">
+                            <HBox alignment="CENTER_LEFT" spacing="6">
+                                <Label text="🔒" style="-fx-font-size: 12px;"/>
+                                <Label text="Single Fixed Administrator Identity" styleClass="admin-notice-title"/>
+                            </HBox>
+                            <Label text="Administrator credentials are provisioned securely via protected server environment properties. Public self-registration is permanently disabled."
+                                   styleClass="admin-notice-desc" wrapText="true"/>
+                        </VBox>
+
+                        <!-- ERROR / VALIDATION MESSAGE BANNER -->
+                        <Label fx:id="errorMessage" wrapText="true" visible="false" managed="false" styleClass="error-banner"/>
+
+                        <!-- DYNAMIC REGISTRATION FIELDS -->
+                        <VBox fx:id="registerFields" spacing="7" managed="false" visible="false">
+                            <HBox alignment="CENTER_LEFT" styleClass="pill-input-box">
+                                <Label text="👤" styleClass="pill-icon"/>
+                                <TextField fx:id="fullNameField" promptText="Full Name *" onAction="#onSubmit"
+                                           styleClass="pill-text-field" HBox.hgrow="ALWAYS"/>
+                            </HBox>
+                            <VBox fx:id="companyBox" spacing="3" managed="false" visible="false">
+                                <HBox alignment="CENTER_LEFT" styleClass="pill-input-box">
+                                    <Label text="🏢" styleClass="pill-icon"/>
+                                    <TextField fx:id="companyField" promptText="Company / Organization Name *" onAction="#onSubmit"
+                                               styleClass="pill-text-field" HBox.hgrow="ALWAYS"/>
+                                </HBox>
+                            </VBox>
+                            <HBox alignment="CENTER_LEFT" styleClass="pill-input-box">
+                                <Label text="📞" styleClass="pill-icon"/>
+                                <TextField fx:id="phoneField" promptText="Phone Number (e.g. +91 9876543210)" onAction="#onSubmit"
+                                           styleClass="pill-text-field" HBox.hgrow="ALWAYS"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- CREDENTIAL FIELDS (Pill Design) -->
+                        <VBox spacing="7">
+                            <!-- Email / Username Input -->
+                            <HBox alignment="CENTER_LEFT" styleClass="pill-input-box">
+                                <Label text="👤" styleClass="pill-icon"/>
+                                <TextField fx:id="emailField" promptText="Username" onAction="#onSubmit"
+                                           styleClass="pill-text-field" HBox.hgrow="ALWAYS"/>
+                            </HBox>
+
+                            <!-- Password Input with Toggle -->
+                            <HBox alignment="CENTER_LEFT" styleClass="pill-input-box">
+                                <Label text="🔒" styleClass="pill-icon"/>
+                                <StackPane HBox.hgrow="ALWAYS" alignment="CENTER_LEFT">
+                                    <PasswordField fx:id="passwordField" promptText="Password" onAction="#onSubmit"
+                                                   styleClass="pill-text-field"/>
+                                    <TextField fx:id="passwordTextField" promptText="Password" onAction="#onSubmit"
+                                               styleClass="pill-text-field" visible="false" managed="false"/>
+                                </StackPane>
+                                <Button fx:id="togglePasswordBtn" text="👁" onAction="#togglePasswordVisibility"
+                                        styleClass="input-addon-btn"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- REMEMBER ME & DEMO PREFILL -->
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <CheckBox fx:id="rememberCheck" text="Remember credentials" selected="true" styleClass="modern-checkbox"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="demoPrefillBtn" text="⚡ Prefill Demo" onAction="#fillDemoForCurrentRole"
+                                    styleClass="demo-prefill-pill"/>
+                        </HBox>
+
+                        <!-- SUBMIT BUTTON ("Login Now") -->
+                        <VBox spacing="4" alignment="CENTER">
+                            <Button fx:id="submitButton" text="Login Now" onAction="#onSubmit"
+                                    maxWidth="Infinity" styleClass="login-now-btn"/>
+                            <ProgressIndicator fx:id="loadingIndicator" visible="false" managed="false" prefWidth="22" prefHeight="22"/>
+                        </VBox>
+
+                        <!-- SOCIAL DIVIDER -->
+                        <HBox alignment="CENTER" spacing="8" styleClass="social-divider-box">
+                            <Region styleClass="divider-line" HBox.hgrow="ALWAYS"/>
+                            <Label text="Login with Others" styleClass="social-divider-label"/>
+                            <Region styleClass="divider-line" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+
+                        <!-- SOCIAL LOGIN BUTTONS -->
+                        <HBox alignment="CENTER" spacing="8">
+                            <Button fx:id="socialGoogleBtn" text="Login with google" onAction="#onGoogleLogin"
+                                    styleClass="social-pill-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            <Button fx:id="socialFacebookBtn" text="Login with Facebook" onAction="#onFacebookLogin"
+                                    styleClass="social-pill-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        </HBox>
+
+                        <!-- SECURITY FOOTER -->
+                        <HBox alignment="CENTER" spacing="6" styleClass="card-footer-box">
+                            <Label text="🛡️ BCrypt Encryption" styleClass="footer-tag"/>
+                            <Label text="•" styleClass="footer-dot"/>
+                            <Label text="Role-Enforced" styleClass="footer-tag"/>
+                            <Label text="•" styleClass="footer-dot"/>
+                            <Label text="TLS Secured" styleClass="footer-tag"/>
+                        </HBox>
+
+                    </VBox>
+
+                    <!-- RIGHT COLUMN: PURPLE HERO PANEL WITH PERSON & LIGHTNING BADGE -->
+                    <StackPane fx:id="authRightPane" prefWidth="430" minWidth="340" styleClass="auth-split-right" HBox.hgrow="ALWAYS">
+
+                        <!-- Organic Fluid Wavy Lines Background -->
+                        <StackPane mouseTransparent="true" pickOnBounds="false">
+                            <SVGPath content="M -30,80 C 80,20 180,160 380,90" styleClass="hero-wavy-path"/>
+                            <SVGPath content="M -20,200 C 100,120 220,280 400,180" styleClass="hero-wavy-path"/>
+                            <SVGPath content="M -10,320 C 120,260 240,380 410,300" styleClass="hero-wavy-path"/>
+                        </StackPane>
+
+                        <!-- Translucent Glass Hero Frame with Person -->
+                        <VBox alignment="CENTER" spacing="10" styleClass="hero-glass-card" maxWidth="310">
+                            <StackPane alignment="CENTER">
+                                <ImageView fx:id="heroImageView" fitWidth="280" fitHeight="320" preserveRatio="true" smooth="true"/>
+                            </StackPane>
+                            <HBox alignment="CENTER" spacing="6" styleClass="hero-badge-pill">
+                                <Label text="⚡" style="-fx-text-fill: #FACC15; -fx-font-size: 11px;"/>
+                                <Label text="AI Fast-Screening Active" styleClass="hero-badge-text"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- Floating Lightning Badge Overlapping the Divider Seam -->
+                        <StackPane styleClass="floating-lightning-badge" StackPane.alignment="CENTER_LEFT" translateX="-21">
+                            <Label text="⚡" styleClass="lightning-bolt-icon"/>
+                        </StackPane>
+
+                    </StackPane>
+
+                </HBox>
+
+            </StackPane>
+        </center>
+
+    </BorderPane>
+
+</StackPane>

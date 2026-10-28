@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hiresmart.controller.DashboardController"
+            fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+
+    <VBox spacing="20" style="-fx-padding: 4;">
+
+        <!-- WELCOME BANNER -->
+        <HBox fx:id="welcomeBanner" styleClass="card" alignment="CENTER_LEFT" spacing="20"
+              style="-fx-background-color: linear-gradient(to right, #1E40AF, #2563EB); -fx-padding: 24; -fx-background-radius: 12;">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label fx:id="welcomeGreeting" text="Welcome back, Aditya Verma!" style="-fx-font-size: 22px; -fx-font-weight: 800; -fx-text-fill: white;"/>
+                    <Label fx:id="welcomeRoleBadge" text="CANDIDATE" style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 11px; -fx-background-radius: 6; -fx-padding: 2 8;"/>
+                </HBox>
+                <Label text="HireSmart AI ATS is actively monitoring applicant pipelines, resumes, and interview evaluations."
+                       style="-fx-font-size: 13px; -fx-text-fill: #BFDBFE;"/>
+            </VBox>
+            <HBox spacing="10">
+                <Button fx:id="btnQuickAction1" text="⚡ Run ATS Screening" onAction="#onQuickAction1" styleClass="primary-button"
+                        style="-fx-background-color: white; -fx-text-fill: #1E40AF; -fx-font-weight: bold;"/>
+                <Button fx:id="btnQuickAction2" text="📈 Export Excel" onAction="#onQuickAction2" styleClass="outline-button"
+                        style="-fx-text-fill: white; -fx-border-color: rgba(255,255,255,0.4);"/>
+            </HBox>
+        </HBox>
+
+        <!-- 4 ANIMATED SUMMARY CARDS -->
+        <GridPane fx:id="cardsGrid" hgap="16" vgap="16">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="25"/>
+            </columnConstraints>
+
+            <!-- Card 1 -->
+            <VBox fx:id="card1" GridPane.columnIndex="0" styleClass="summary-card" spacing="8">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Total Candidates" styleClass="card-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="👥" style="-fx-font-size: 18px;"/>
+                </HBox>
+                <Label fx:id="totalCandidates" text="0" styleClass="card-value-primary"/>
+                <Label text="⤴ Verified profiles in database" styleClass="card-subtitle"/>
+            </VBox>
+
+            <!-- Card 2 -->
+            <VBox fx:id="card2" GridPane.columnIndex="1" styleClass="summary-card" spacing="8">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Resumes Screened" styleClass="card-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="📄" style="-fx-font-size: 18px;"/>
+                </HBox>
+                <Label fx:id="resumesScreened" text="0" styleClass="card-value"/>
+                <Label text="Avg match score: 88%" style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+            </VBox>
+
+            <!-- Card 3 -->
+            <VBox fx:id="card3" GridPane.columnIndex="2" styleClass="summary-card" spacing="8">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Interviews Scheduled" styleClass="card-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="📅" style="-fx-font-size: 18px;"/>
+                </HBox>
+                <Label fx:id="interviewsScheduled" text="0" styleClass="card-value"/>
+                <Label text="Technical &amp; HR rounds" style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
+            </VBox>
+
+            <!-- Card 4 -->
+            <VBox fx:id="card4" GridPane.columnIndex="3" styleClass="summary-card" spacing="8">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Selected Candidates" styleClass="card-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="🏆" style="-fx-font-size: 18px;"/>
+                </HBox>
+                <Label fx:id="selectedCandidates" text="0" styleClass="card-value"/>
+                <Label text="Offer stage recommendations" styleClass="card-subtitle"/>
+            </VBox>
+        </GridPane>
+
+        <!-- PIPELINE STATUS & PROFILE OVERVIEW -->
+        <HBox spacing="16">
+            <!-- Left: Pipeline Stage Breakdown -->
+            <VBox HBox.hgrow="ALWAYS" styleClass="card" spacing="14">
+                <Label text="Recruitment Funnel &amp; Pipeline Distribution" styleClass="section-title"/>
+                <VBox spacing="10">
+                    <VBox spacing="4">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Applications Applied &amp; Under Review" style="-fx-font-weight: 600;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="pipelineReviewLabel" text="4 Candidates" style="-fx-text-fill: #64748B;"/>
+                        </HBox>
+                        <ProgressBar fx:id="progressReview" progress="0.75" maxWidth="Infinity" styleClass="progress-bar"/>
+                    </VBox>
+                    <VBox spacing="4">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Shortlisted (High ATS Score)" style="-fx-font-weight: 600;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="pipelineShortlistLabel" text="3 Candidates" style="-fx-text-fill: #64748B;"/>
+                        </HBox>
+                        <ProgressBar fx:id="progressShortlist" progress="0.60" maxWidth="Infinity" styleClass="progress-bar"/>
+                    </VBox>
+                    <VBox spacing="4">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Interviews Scheduled" style="-fx-font-weight: 600;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="pipelineInterviewLabel" text="2 Rounds Active" style="-fx-text-fill: #64748B;"/>
+                        </HBox>
+                        <ProgressBar fx:id="progressInterview" progress="0.40" maxWidth="Infinity" styleClass="progress-bar"/>
+                    </VBox>
+                </VBox>
+            </VBox>
+
+            <!-- Right: System Health & AI Status -->
+            <VBox prefWidth="380" styleClass="card" spacing="12">
+                <Label text="Engine &amp; Database Health" styleClass="section-title"/>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="●" style="-fx-text-fill: #10B981; -fx-font-size: 16px;"/>
+                    <VBox>
+                        <Label text="Relational Database" style="-fx-font-weight: bold;"/>
+                        <Label fx:id="dbStatusLabel" text="MySQL / In-Memory Active" style="-fx-font-size: 11px; -fx-text-fill: #64748B;"/>
+                    </VBox>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="●" style="-fx-text-fill: #10B981; -fx-font-size: 16px;"/>
+                    <VBox>
+                        <Label text="ATS Screening Algorithm" style="-fx-font-weight: bold;"/>
+                        <Label text="Transparent Multi-Vector Scoring" style="-fx-font-size: 11px; -fx-text-fill: #64748B;"/>
+                    </VBox>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="●" style="-fx-text-fill: #3B82F6; -fx-font-size: 16px;"/>
+                    <VBox>
+                        <Label text="JavaMail &amp; Apache POI" style="-fx-font-weight: bold;"/>
+                        <Label text="Ready for Automated Notifications &amp; Exports" style="-fx-font-size: 11px; -fx-text-fill: #64748B;"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </HBox>
+
+        <!-- RECENT CANDIDATES & APPLICATIONS TABLE -->
+        <VBox styleClass="card" spacing="12">
+            <HBox alignment="CENTER_LEFT">
+                <VBox spacing="2">
+                    <Label text="Recent Candidate Applications &amp; ATS Scores" styleClass="section-title"/>
+                    <Label text="Real-time records populated from MySQL repository" styleClass="page-subtitle"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="View All Pipeline →" onAction="#onViewAllCandidates" styleClass="secondary-button"/>
+            </HBox>
+
+            <TableView fx:id="recentTable" prefHeight="260">
+                <columns>
+                    <TableColumn fx:id="colName" text="Candidate Name" prefWidth="180"/>
+                    <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+                    <TableColumn fx:id="colPosition" text="Target Position" prefWidth="190"/>
+                    <TableColumn fx:id="colScore" text="ATS Score" prefWidth="100"/>
+                    <TableColumn fx:id="colStatus" text="Pipeline Status" prefWidth="160"/>
+                    <TableColumn fx:id="colDate" text="Date Applied" prefWidth="120"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</ScrollPane>

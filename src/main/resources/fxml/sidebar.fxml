@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.hiresmart.controller.SidebarController"
+      styleClass="sidebar" spacing="6" prefWidth="250">
+
+    <!-- BRAND LOGO -->
+    <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 8 8 20 8;">
+        <Label text="HireSmart" styleClass="logo-text"/>
+        <Label text="ATS" styleClass="logo-badge"/>
+    </HBox>
+
+    <!-- NAVIGATION BUTTONS -->
+    <Button fx:id="btnDashboard" text="📊   Dashboard" onAction="#goDashboard" maxWidth="Infinity" styleClass="sidebar-button, sidebar-button-active"/>
+    <Button fx:id="btnProfile" text="👤   My Profile" onAction="#goProfile" maxWidth="Infinity" styleClass="sidebar-button"/>
+    <Button fx:id="btnJobs" text="💼   Job Openings" onAction="#goJobs" maxWidth="Infinity" styleClass="sidebar-button"/>
+    <Button fx:id="btnScreening" text="⚡   ATS Screening" onAction="#goScreening" maxWidth="Infinity" styleClass="sidebar-button"/>
+    <Button fx:id="btnApplications" text="📋   Applications" onAction="#goApplications" maxWidth="Infinity" styleClass="sidebar-button"/>
+    <Button fx:id="btnInterviews" text="📅   Interviews" onAction="#goInterviews" maxWidth="Infinity" styleClass="sidebar-button"/>
+    <Button fx:id="btnMockInterview" text="🤖   AI Mock Interview" onAction="#goMockInterview" maxWidth="Infinity" styleClass="sidebar-button"/>
+    <Button fx:id="btnReports" text="📈   Excel Reports" onAction="#goReports" maxWidth="Infinity" styleClass="sidebar-button"/>
+    <Button fx:id="btnNotifications" text="🔔   Notifications" onAction="#goEmail" maxWidth="Infinity" styleClass="sidebar-button"/>
+
+    <Region VBox.vgrow="ALWAYS"/>
+
+    <!-- FOOTER NAVIGATION -->
+    <Separator style="-fx-opacity: 0.5;"/>
+    <Button fx:id="btnSettings" text="⚙   Settings" onAction="#goSettings" maxWidth="Infinity" styleClass="sidebar-button"/>
+    <Button fx:id="btnLogout" text="🚪   Logout" onAction="#onLogout" maxWidth="Infinity" styleClass="danger-button"/>
+</VBox>

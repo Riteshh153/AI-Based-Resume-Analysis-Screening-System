@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hiresmart.controller.AddCandidateController"
+            fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+
+    <VBox spacing="20" style="-fx-padding: 4;">
+
+        <!-- HEADER -->
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="14">
+            <VBox spacing="2">
+                <Label text="AI Mock Interview Practice Studio" styleClass="page-title"/>
+                <Label text="Prepare for technical &amp; behavioral rounds with real-time AI answer analysis and scoring" styleClass="page-subtitle"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="🎲 Generate New Question Set" onAction="#onGenerateNewQuestions" styleClass="primary-button"/>
+        </HBox>
+
+        <!-- ACTIVE QUESTION & ANSWER WORKSPACE -->
+        <VBox styleClass="card" spacing="16">
+            <HBox alignment="CENTER_LEFT">
+                <Label text="Current Interview Question" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="categoryTag" text="TECHNICAL" styleClass="role-tag" style="-fx-background-color: #2563EB;"/>
+            </HBox>
+
+            <Label fx:id="questionPromptLabel" text="Loading AI generated question..." wrapText="true"
+                   style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1E40AF; -fx-background-color: #EFF6FF; -fx-padding: 16; -fx-background-radius: 8;"/>
+
+            <VBox spacing="6">
+                <Label text="Your Response / Solution Architecture:" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                <TextArea fx:id="candidateAnswerArea" prefRowCount="6" wrapText="true" promptText="Type your technical explanation, architectural approach, and key algorithms here..." styleClass="text-area"/>
+            </VBox>
+
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button fx:id="btnSubmitAnswer" text="⚡ Submit for AI Evaluation" onAction="#onSubmitAnswer" styleClass="primary-button"/>
+            </HBox>
+        </VBox>
+
+        <!-- AI FEEDBACK & SCORECARD (ANIMATED) -->
+        <VBox fx:id="evaluationResultCard" styleClass="card" spacing="14" visible="false" managed="false"
+              style="-fx-border-color: #10B981; -fx-border-width: 2;">
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <VBox alignment="CENTER" prefWidth="120" style="-fx-background-color: #ECFDF5; -fx-background-radius: 12; -fx-padding: 12;">
+                    <Label text="Answer Score" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #065F46;"/>
+                    <Label fx:id="mockScoreLabel" text="88" style="-fx-font-size: 32px; -fx-font-weight: 900; -fx-text-fill: #059669;"/>
+                    <Label text="/ 100" style="-fx-font-size: 10px; -fx-text-fill: #065F46;"/>
+                </VBox>
+
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="AI Assessment &amp; Coaching Feedback:" styleClass="section-title"/>
+                    <Label fx:id="mockFeedbackLabel" text="Evaluation commentary will appear here." wrapText="true"
+                           style="-fx-font-size: 13px; -fx-text-fill: #334155;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- PAST QUESTIONS PRACTICE LOG -->
+        <VBox styleClass="card" spacing="12">
+            <Label text="Previous Practice Questions &amp; Scores" styleClass="section-title"/>
+            <TableView fx:id="mockHistoryTable" prefHeight="220">
+                <columns>
+                    <TableColumn fx:id="colQId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colCategory" text="Category" prefWidth="110"/>
+                    <TableColumn fx:id="colQuestion" text="Question Text" prefWidth="380"/>
+                    <TableColumn fx:id="colScore" text="Score" prefWidth="80"/>
+                    <TableColumn fx:id="colFeedback" text="Feedback Summary" prefWidth="300"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</ScrollPane>

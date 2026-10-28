@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hiresmart.controller.EmailController"
+            fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+
+    <VBox spacing="20" style="-fx-padding: 4;">
+
+        <!-- HEADER -->
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="14">
+            <VBox spacing="2">
+                <Label text="Email Notifications &amp; Communication Center" styleClass="page-title"/>
+                <Label text="Automated Jakarta Mail dispatch logs, application status alerts, and interview invites" styleClass="page-subtitle"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="🔄 Refresh Logs" onAction="#onRefreshLogs" styleClass="secondary-button"/>
+        </HBox>
+
+        <!-- SPLIT VIEW: TABLE & MESSAGE PREVIEW -->
+        <HBox spacing="16">
+
+            <!-- NOTIFICATIONS TABLE -->
+            <VBox HBox.hgrow="ALWAYS" styleClass="card" spacing="12">
+                <Label text="Notification History (Stored in MySQL)" styleClass="section-title"/>
+                <TableView fx:id="notificationsTable" prefHeight="450">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colRecipient" text="Recipient" prefWidth="200"/>
+                        <TableColumn fx:id="colSubject" text="Subject" prefWidth="250"/>
+                        <TableColumn fx:id="colType" text="Type" prefWidth="150"/>
+                        <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
+                        <TableColumn fx:id="colTime" text="Dispatched At" prefWidth="130"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- EMAIL BODY PREVIEW -->
+            <VBox prefWidth="440" styleClass="card" spacing="14">
+                <Label text="Message Content Preview" styleClass="section-title"/>
+                <Separator/>
+
+                <VBox spacing="6">
+                    <Label text="Recipient:" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #64748B;"/>
+                    <Label fx:id="previewToLabel" text="No message selected" style="-fx-font-weight: bold; -fx-text-fill: #0F172A;"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Subject:" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #64748B;"/>
+                    <Label fx:id="previewSubjectLabel" text="Select a notification row from the table" wrapText="true" style="-fx-font-weight: bold; -fx-text-fill: #1E40AF;"/>
+                </VBox>
+
+                <VBox spacing="6" VBox.vgrow="ALWAYS">
+                    <Label text="Body Content:" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #64748B;"/>
+                    <TextArea fx:id="previewBodyText" prefRowCount="14" wrapText="true" editable="false" styleClass="text-area"/>
+                </VBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>

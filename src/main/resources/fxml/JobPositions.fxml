@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hiresmart.controller.JobController"
+            fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+
+    <VBox spacing="20" style="-fx-padding: 4;">
+
+        <!-- HEADER & FILTER TOOLBAR -->
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="14">
+            <VBox spacing="2">
+                <Label text="Job Requisitions &amp; Openings" styleClass="page-title"/>
+                <Label text="Browse positions or create new recruitment requisitions" styleClass="page-subtitle"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <TextField fx:id="searchKeywordInput" promptText="Filter by title, skill..." prefWidth="200" styleClass="text-field"/>
+                <TextField fx:id="searchLocationInput" promptText="Location..." prefWidth="140" styleClass="text-field"/>
+                <Button text="🔍 Filter" onAction="#onSearchJobs" styleClass="secondary-button"/>
+                <Button fx:id="btnOpenCreateJob" text="➕ Post New Job" onAction="#onOpenCreateJob" styleClass="primary-button"/>
+            </HBox>
+        </HBox>
+
+        <!-- JOB CREATION CARD (COLLAPSIBLE) -->
+        <VBox fx:id="createJobFormPane" styleClass="card" spacing="14" visible="false" managed="false"
+              style="-fx-border-color: #93C5FD; -fx-border-width: 2;">
+            <HBox alignment="CENTER_LEFT">
+                <Label text="Create New Job Requisition" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="✕ Close" onAction="#onCloseCreateJobPane" styleClass="icon-button"/>
+            </HBox>
+
+            <GridPane hgap="12" vgap="12">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="33.3"/>
+                    <ColumnConstraints percentWidth="33.3"/>
+                    <ColumnConstraints percentWidth="33.4"/>
+                </columnConstraints>
+
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="Job Title *" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="newJobTitle" promptText="e.g. Senior Java Developer" styleClass="text-field"/>
+                </VBox>
+                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="Company Name *" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="newJobCompany" promptText="e.g. HireSmart Cloud" styleClass="text-field"/>
+                </VBox>
+                <VBox spacing="4" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Label text="Department" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="newJobDepartment" promptText="e.g. Core Engineering" styleClass="text-field"/>
+                </VBox>
+
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <Label text="Location *" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="newJobLocation" promptText="e.g. Bangalore / Remote" styleClass="text-field"/>
+                </VBox>
+                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Label text="Job Type" style="-fx-font-weight: bold;"/>
+                    <ComboBox fx:id="newJobType" maxWidth="Infinity" styleClass="combo-box"/>
+                </VBox>
+                <VBox spacing="4" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <Label text="Min Experience (Years)" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="newJobExperience" promptText="e.g. 3" styleClass="text-field"/>
+                </VBox>
+            </GridPane>
+
+            <VBox spacing="4">
+                <Label text="Required Skills (Comma separated) *" style="-fx-font-weight: bold;"/>
+                <TextField fx:id="newJobSkills" promptText="e.g. Java, Spring Boot, MySQL, REST APIs, Microservices, Docker" styleClass="text-field"/>
+            </VBox>
+
+            <VBox spacing="4">
+                <Label text="Job Description &amp; Responsibilities *" style="-fx-font-weight: bold;"/>
+                <TextArea fx:id="newJobDescription" prefRowCount="3" wrapText="true" styleClass="text-area"/>
+            </VBox>
+
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="Cancel" onAction="#onCloseCreateJobPane" styleClass="outline-button"/>
+                <Button text="Publish Job Opening" onAction="#onSubmitNewJob" styleClass="primary-button"/>
+            </HBox>
+        </VBox>
+
+        <!-- JOB LISTINGS TABLE -->
+        <VBox styleClass="card" spacing="12">
+            <TableView fx:id="jobsTable" prefHeight="380">
+                <columns>
+                    <TableColumn fx:id="colJobId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colTitle" text="Job Title" prefWidth="220"/>
+                    <TableColumn fx:id="colCompany" text="Company" prefWidth="180"/>
+                    <TableColumn fx:id="colLocation" text="Location" prefWidth="140"/>
+                    <TableColumn fx:id="colType" text="Type" prefWidth="90"/>
+                    <TableColumn fx:id="colExp" text="Exp Req" prefWidth="80"/>
+                    <TableColumn fx:id="colSkills" text="Required Skills" prefWidth="250"/>
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="90"/>
+                    <TableColumn fx:id="colAction" text="Action" prefWidth="130"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</ScrollPane>
